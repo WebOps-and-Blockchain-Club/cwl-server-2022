@@ -6,26 +6,25 @@ import Volunteer from "./volunteer";
 @ObjectType("Issue")
 class Issue extends BaseEntity {
     @PrimaryGeneratedColumn("uuid")
-    @Field()
     id!: string;
 
     @Column()
-    @Field()
-    desc!: [string];
+    @Field(() => String)
+    desc!: string;
 
     @Column()
     @Field()
     PhoneNumber!: Number;
 
     @Column()
-    @Field()
+    @Field(() => String)
     tags!: string;
 
     @Column()
     @Field()
     location!: string;
 
-    @ManyToOne(() => Volunteer, volunteer => volunteer.id, { nullable: false })
+    @ManyToOne(() => Volunteer, volunteer => volunteer.tags)
     @Field(() => Volunteer)
     volunteer!: Volunteer;
 }

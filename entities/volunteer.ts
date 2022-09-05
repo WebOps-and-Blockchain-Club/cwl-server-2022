@@ -6,14 +6,14 @@ import Issue from './issue'
 class Volunteer extends BaseEntity {
     @PrimaryGeneratedColumn("uuid")
     @Field(() => String)
-    id: string | undefined;
+    id!: string;
 
     @Column()
-    @Field()
-    tags: string | undefined;
+    @Field(() => String)
+    tags!: string;
 
     @Column()
-    @Field()
+    @Field(() => Number)
     PhoneNumber!: Number;
 
     @Column()
@@ -24,7 +24,7 @@ class Volunteer extends BaseEntity {
     @Field()
     password!: string;
 
-    @OneToMany(() => Issue, issue => issue.desc, { nullable: false })
+    @OneToMany(() => Issue, issue => issue.desc)
     @Field(() => [Issue])
     issue!: Issue[];
 

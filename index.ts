@@ -3,10 +3,9 @@ import { buildSchema } from 'type-graphql';
 import "reflect-metadata";
 import * as dotenv from "dotenv";
 import { createConnection } from "typeorm";
-import entities from "../entities/index";
-import resolvers from "../resolver/index"
+import entities from "./entities";
+import resolvers from "./resolver/index"
 dotenv.config();
-
 const main = async () => {
     const schema = await buildSchema({
         resolvers

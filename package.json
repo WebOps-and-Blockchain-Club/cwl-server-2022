@@ -23,7 +23,7 @@
         "typeorm": "^0.2.41"
     },
     "scripts": {
-        "dev": "ts-node-dev --respawn src/index.ts",
+        "dev": "ts-node-dev --respawn index.ts",
         "tsc": "tsc"
     },
     "devDependencies": {
