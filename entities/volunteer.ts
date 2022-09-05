@@ -21,7 +21,6 @@ class Volunteer extends BaseEntity {
     username!: string;
 
     @Column()
-    @Field()
     password!: string;
 
     @OneToMany(() => Issue, issue => issue.desc)

@@ -22,7 +22,7 @@ class VolunteerInput {
 @InputType("LoginInput")
 class LoginInput {
     @Field(() => String)
-    password!: String
+    password!: string
 
     @Field(() => Number)
     PhoneNumber!: Number
