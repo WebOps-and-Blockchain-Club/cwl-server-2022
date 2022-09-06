@@ -22,11 +22,12 @@ export class WaterDataResolver {
 
   @Mutation(() => WaterData)
   async postWaterData(
-    @Arg("WaterDataInput") { location, depth }: WaterDataInput
+    @Arg("WaterDataInput") { location, depth, image }: WaterDataInput
   ) {
     try {
       const waterData = new WaterData();
       waterData.location = location;
+      waterData.image = image;
       waterData.date = new Date();
       waterData.depth = depth;
 

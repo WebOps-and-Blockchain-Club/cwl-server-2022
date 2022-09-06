@@ -41,6 +41,9 @@ class WaterDataInput {
   @Field(() => String)
   location!: string;
 
+  @Field(() => String)
+  image!: string;
+
   @Field(() => Number)
   depth!: number;
 }

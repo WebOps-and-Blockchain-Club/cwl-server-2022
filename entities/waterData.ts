@@ -9,6 +9,10 @@ class WaterData extends BaseEntity {
 
   @Column()
   @Field(() => String)
+  image!: string;
+
+  @Column()
+  @Field(() => String)
   location!: string;
 
   @Column()

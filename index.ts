@@ -13,7 +13,13 @@ const main = async () => {
   const schema = await buildSchema({
     resolvers,
   });
-  const server = new ApolloServer({ schema, csrfPrevention: true });
+  const server = new ApolloServer({
+    schema,
+    // csrfPrevention: true,
+    cors: {
+      origin: ["http://localhost:3000"],
+    },
+  });
 
   server.listen(PORT, () => {
     console.log(`server started on http://localhost:${PORT}`);
