@@ -14,8 +14,9 @@ export class VolunteerResolver {
         }
         return "Failure"
     }
+
     @Mutation(() => Volunteer)
-    async signIn(@Arg("VolunteerInput") VolunteerInput: VolunteerInput) {
+    async signUp(@Arg("VolunteerInput") VolunteerInput: VolunteerInput) {
         try {
             const volunteer = new Volunteer;
             volunteer.username = VolunteerInput.username;
@@ -27,21 +28,6 @@ export class VolunteerResolver {
             volunteer.PhoneNumber = VolunteerInput.PhoneNumber;
             const volunteerCreated = await volunteer.save();
             return volunteerCreated;
-        }
-        catch (e: any) {
-            throw new Error(e.message);
-        }
-    }
-    @Mutation(() => Issue)
-    async Complaint(@Arg("ComplaintInput") ComplaintInput: ComplaintInput) {
-        try {
-            const issue = new Issue;
-            issue.PhoneNumber = ComplaintInput.PhoneNumber;
-            issue.tags = ComplaintInput.tags;
-            issue.desc = ComplaintInput.desc;
-            issue.location = ComplaintInput.location;
-            const CompliantCreated = await issue.save();
-            return CompliantCreated;
         }
         catch (e: any) {
             throw new Error(e.message);

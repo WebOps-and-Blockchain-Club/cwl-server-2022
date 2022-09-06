@@ -1,4 +1,5 @@
 import { Field, InputType } from "type-graphql";
+import { Any } from "typeorm";
 
 @InputType("VolunteerInput")
 class VolunteerInput {
@@ -29,7 +30,6 @@ class LoginInput {
 }
 @InputType("ComplaintInput")
 class ComplaintInput {
-
     @Field(() => Number)
     PhoneNumber!: Number;
 
@@ -41,6 +41,10 @@ class ComplaintInput {
 
     @Field(() => String)
     tags!: string;
+
+    @Field(() => String)
+    status!: string
+
 }
 
 export { VolunteerInput, ComplaintInput, LoginInput } 

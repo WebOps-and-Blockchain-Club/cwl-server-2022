@@ -15,9 +15,7 @@ const main = async () => {
     server.listen(4000, () => {
         console.log("server started on http://localhost:4000");
     });
-
 };
-
 createConnection({
     type: "postgres",
     url: process.env.DATABASE_URL,

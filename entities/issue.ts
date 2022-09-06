@@ -6,6 +6,7 @@ import Volunteer from "./volunteer";
 @ObjectType("Issue")
 class Issue extends BaseEntity {
     @PrimaryGeneratedColumn("uuid")
+    @Field()
     id!: string;
 
     @Column()
@@ -23,6 +24,10 @@ class Issue extends BaseEntity {
     @Column()
     @Field()
     location!: string;
+
+    @Column()
+    @Field()
+    status!: string;
 
     @ManyToOne(() => Volunteer, volunteer => volunteer.tags)
     @Field(() => Volunteer)
