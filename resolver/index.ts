@@ -1,3 +1,4 @@
 import { VolunteerResolver } from "./volunteer";
+import { WaterDataResolver } from "./waterData";
 
-export default [VolunteerResolver] as const
+export default [VolunteerResolver, WaterDataResolver] as const;
