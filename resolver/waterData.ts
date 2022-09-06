@@ -1,5 +1,6 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import WaterData from "../entities/waterData";
+import { MoreThanOrEqual } from "typeorm";
 import { WaterDataInput } from "../types/input";
 
 const MS_IN_2_DAYS = 2 * 24 * 60 * 60 * 1000;
@@ -10,11 +11,10 @@ export class WaterDataResolver {
   async getWaterData() {
     try {
       const current = Date.now();
-      const twoDaysBefore = current - MS_IN_2_DAYS;
-      //   const data = await WaterData.find({
-      //     where: { date: { gt: twoDaysBefore } },
-      //   });
-      const data = await WaterData.find();
+      const twoDaysBefore = new Date(current - MS_IN_2_DAYS);
+      const data = await WaterData.find({
+        where: { date: MoreThanOrEqual(twoDaysBefore) },
+      });
       return data;
     } catch (e: any) {
       throw new Error(e.message);
