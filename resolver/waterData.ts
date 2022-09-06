@@ -2,8 +2,7 @@ import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import WaterData from "../entities/waterData";
 import { MoreThanOrEqual } from "typeorm";
 import { WaterDataInput } from "../types/input";
-
-const MS_IN_2_DAYS = 2 * 24 * 60 * 60 * 1000;
+import { MS_IN_2_DAYS } from "../utils/constants";
 
 @Resolver()
 export class WaterDataResolver {

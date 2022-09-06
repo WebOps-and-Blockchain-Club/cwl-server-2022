@@ -5,12 +5,11 @@ class VolunteerInput {
   @Field(() => String)
   tags!: string;
 
-  @Field(() => Number)
-  PhoneNumber!: Number;
+  @Field(() => String)
+  phoneNumber!: string;
 
   @Field()
   username!: string;
-
   @Field()
   password!: string;
 }
@@ -19,13 +18,13 @@ class LoginInput {
   @Field(() => String)
   password!: string;
 
-  @Field(() => Number)
-  PhoneNumber!: Number;
+  @Field(() => String)
+  phoneNumber!: string;
 }
 @InputType("ComplaintInput")
 class ComplaintInput {
-  @Field(() => Number)
-  PhoneNumber!: Number;
+  @Field(() => String)
+  phoneNumber!: string;
 
   @Field(() => String)
   location!: string;
