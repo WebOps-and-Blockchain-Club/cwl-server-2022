@@ -1,3 +1,4 @@
+import { IssueResolver } from "./issue";
 import { VolunteerResolver } from "./volunteer";
 
-export default [VolunteerResolver] as const
+export default [VolunteerResolver, IssueResolver] as const

@@ -23,7 +23,7 @@ class Volunteer extends BaseEntity {
     @Column()
     password!: string;
 
-    @OneToMany(() => Issue, issue => issue.desc)
+    @OneToMany(() => Issue, issue => issue.tags)
     @Field(() => [Issue])
     issue!: Issue[];
 
