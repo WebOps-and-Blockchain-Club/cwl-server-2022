@@ -8,8 +8,8 @@ class VolunteerInput {
     tags!: string;
 
 
-    @Field(() => Number)
-    PhoneNumber!: Number;
+    @Field(() => String)
+    phoneNumber!: string;
 
 
     @Field()
@@ -20,18 +20,20 @@ class VolunteerInput {
     password!: string;
 
 }
+
 @InputType("LoginInput")
 class LoginInput {
     @Field(() => String)
     password!: string
 
-    @Field(() => Number)
-    PhoneNumber!: Number
+    @Field(() => String)
+    phoneNumber!: string
 }
+
 @InputType("ComplaintInput")
 class ComplaintInput {
-    @Field(() => Number)
-    PhoneNumber!: Number;
+    @Field(() => String)
+    phoneNumber!: string;
 
     @Field(() => String)
     location!: string;

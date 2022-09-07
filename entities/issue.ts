@@ -14,8 +14,8 @@ class Issue extends BaseEntity {
     desc!: string;
 
     @Column()
-    @Field()
-    PhoneNumber!: Number;
+    @Field(() => String)
+    phoneNumber!: string;
 
     @Column()
     @Field(() => String)

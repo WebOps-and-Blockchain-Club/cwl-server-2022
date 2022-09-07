@@ -14,7 +14,7 @@ export class IssueResolver {
     async complaintInput(@Arg("ComplaintInput") complaintInput: ComplaintInput) {
         try {
             const issue = new Issue;
-            issue.PhoneNumber = complaintInput.PhoneNumber;
+            issue.phoneNumber = complaintInput.phoneNumber;
             issue.tags = complaintInput.tags;
             issue.desc = complaintInput.desc;
             issue.location = complaintInput.location;

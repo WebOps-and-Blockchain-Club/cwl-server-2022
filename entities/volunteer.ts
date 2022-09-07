@@ -1,3 +1,4 @@
+import { IsMobilePhone, isPhoneNumber } from "class-validator";
 import { Field, ObjectType } from "type-graphql";
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import Issue from './issue'
@@ -13,8 +14,8 @@ class Volunteer extends BaseEntity {
     tags!: string;
 
     @Column()
-    @Field(() => Number)
-    PhoneNumber!: Number;
+    @Field(() => String)
+    phoneNumber!: string;
 
     @Column()
     @Field()

@@ -1,18 +1,32 @@
-import { Arg, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import Issue from "../entities/issue";
 import Volunteer from "../entities/volunteer";
 import { VolunteerInput, ComplaintInput, LoginInput } from "../types/input";
 import bcryptjs from "bcryptjs"
+import jwt from "jsonwebtoken";
+import MyContext from "../utils/context";
+import LoginOutput from "../types/output";
 @Resolver()
 export class VolunteerResolver {
-    @Query(() => String)
-    async login(@Arg("LoginInput") { PhoneNumber, password }: LoginInput) {
-        const LoginInfo = await Volunteer.findOne({ PhoneNumber })
-        const passwordIsValid = bcryptjs.compareSync(password, LoginInfo?.password || '');
-        if (passwordIsValid) {
-            return "Success"
+    @Mutation(() => LoginOutput)
+    async login(@Arg("LoginInput") { phoneNumber, password }: LoginInput) {
+        try {
+            const volunteer = await Volunteer.findOne({ where: { phoneNumber: phoneNumber } });
+            if (!volunteer) throw new Error("Invalid PhoneNumber");
+            const passwordIsValid = bcryptjs.compareSync(password, volunteer.password);
+            if (!passwordIsValid) throw new Error("Invalid Credentials");
+            // jason-web-token for authorisation
+            let token = jwt.sign(volunteer.id, process.env.JWT_SECRET!);
+            return { token: token, status: true };
+        } catch (e) {
+            throw new Error(`error : ${e}`);
         }
-        return "Failure"
+    }
+
+    @Query(() => Volunteer)
+    @Authorized()
+    async getMe(@Ctx() { volunteer }: MyContext) {
+        return volunteer;
     }
 
     @Mutation(() => Volunteer)
@@ -25,7 +39,7 @@ export class VolunteerResolver {
                 Number(process.env.ITR)
             )
             volunteer.tags = VolunteerInput.tags;
-            volunteer.PhoneNumber = VolunteerInput.PhoneNumber;
+            volunteer.phoneNumber = VolunteerInput.phoneNumber;
             const volunteerCreated = await volunteer.save();
             return volunteerCreated;
         }
