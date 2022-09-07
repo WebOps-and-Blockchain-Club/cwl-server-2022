@@ -1,4 +1,5 @@
 import { Field, InputType } from "type-graphql";
+import { Any } from "typeorm";
 
 @InputType("VolunteerInput")
 class VolunteerInput {
@@ -34,6 +35,9 @@ class ComplaintInput {
 
   @Field(() => String)
   tags!: string;
+
+  @Field(() => String)
+  status!: string;
 }
 
 @InputType("WaterDataInput")

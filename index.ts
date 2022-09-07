@@ -21,7 +21,6 @@ const main = async () => {
     console.log(`server started on http://localhost:${PORT}`);
   });
 };
-
 createConnection({
   type: "postgres",
   url: process.env.DATABASE_URL,
