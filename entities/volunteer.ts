@@ -19,7 +19,7 @@ class Volunteer extends BaseEntity {
   @Field(() => String)
   tags!: string;
 
-  @Column()
+  @Column({ unique: true })
   @Field(() => String, { nullable: false })
   @IsMobilePhone()
   phoneNumber!: string;
