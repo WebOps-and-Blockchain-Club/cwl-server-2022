@@ -6,6 +6,10 @@ import bcryptjs from "bcryptjs";
 @Resolver()
 export class VolunteerResolver {
   @Query(() => String)
+  async testQuery() {
+    return "Hello";
+  }
+  @Query(() => String)
   async login(@Arg("LoginInput") { phoneNumber, password }: LoginInput) {
     const LoginInfo = await Volunteer.findOne({ phoneNumber });
     const passwordIsValid = bcryptjs.compareSync(

@@ -7,7 +7,7 @@ import entities from "./entities";
 import resolvers from "./resolver/index";
 dotenv.config();
 
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 const main = async () => {
   const schema = await buildSchema({
@@ -15,10 +15,6 @@ const main = async () => {
   });
   const server = new ApolloServer({
     schema,
-    // csrfPrevention: true,
-    cors: {
-      origin: ["http://localhost:3000"],
-    },
   });
 
   server.listen(PORT, () => {
