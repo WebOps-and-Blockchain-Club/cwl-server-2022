@@ -4,10 +4,10 @@ import { ComplaintInput } from "../types/input";
 import { RESOLVED, UNRESOLVED } from "../utils/constants";
 @Resolver()
 export class IssueResolver {
-  @Query(() => [Issue])
+  @Query(() => String)
   async issues() {
     const issues = await Issue.find({ where: { status: UNRESOLVED } });
-    return issues;
+    return JSON.stringify(issues);
   }
 
   @Mutation(() => Issue)
@@ -26,7 +26,7 @@ export class IssueResolver {
     }
   }
   @Mutation(() => Issue)
-  async updateInput(@Arg("ID") id: string) {
+  async updateInput(@Arg("ID") id: String) {
     try {
       const issue = await Issue.findOne({ where: { id } });
       issue!.status = RESOLVED;

@@ -38,18 +38,4 @@ export class VolunteerResolver {
       throw new Error(e.message);
     }
   }
-  @Mutation(() => Issue)
-  async Complaint(@Arg("ComplaintInput") ComplaintInput: ComplaintInput) {
-    try {
-      const issue = new Issue();
-      issue.phoneNumber = ComplaintInput.phoneNumber;
-      issue.tags = ComplaintInput.tags;
-      issue.desc = ComplaintInput.desc;
-      issue.location = ComplaintInput.location;
-      const CompliantCreated = await issue.save();
-      return CompliantCreated;
-    } catch (e: any) {
-      throw new Error(e.message);
-    }
-  }
 }
