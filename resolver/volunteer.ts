@@ -1,28 +1,30 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import Issue from "../entities/issue";
 import Volunteer from "../entities/volunteer";
-import { VolunteerInput, ComplaintInput, LoginInput } from "../types/input";
+import { VolunteerInput, LoginInput } from "../types/input";
 import bcryptjs from "bcryptjs";
+import LoginResponse from "../types/return";
+
 @Resolver()
 export class VolunteerResolver {
-  @Query(() => String)
-  async testQuery() {
-    return "Hello";
-  }
-  @Query(() => String)
+  @Query(() => LoginResponse)
   async login(@Arg("LoginInput") { phoneNumber, password }: LoginInput) {
     const LoginInfo = await Volunteer.findOne({ phoneNumber });
-    const passwordIsValid = bcryptjs.compareSync(
+    const isPasswordValid = bcryptjs.compareSync(
       password,
       LoginInfo?.password || ""
     );
-    if (passwordIsValid) {
-      return "Success";
+    if (isPasswordValid) {
+      return {
+        success: true,
+        username: LoginInfo?.username,
+        tags: LoginInfo?.tags,
+      };
     }
-    return "Failure";
+    throw Error("Invalid credentials");
   }
   @Mutation(() => Volunteer)
-  async signIn(@Arg("VolunteerInput") VolunteerInput: VolunteerInput) {
+  async signUp(@Arg("VolunteerInput") VolunteerInput: VolunteerInput) {
     try {
       const volunteer = new Volunteer();
       volunteer.username = VolunteerInput.username;
@@ -35,7 +37,9 @@ export class VolunteerResolver {
       const volunteerCreated = await volunteer.save();
       return volunteerCreated;
     } catch (e: any) {
-      throw new Error(e.message);
+      if (e.code === "23505")
+        throw Error("This phone number is already registered");
+      throw Error("An error occurred");
     }
   }
 }

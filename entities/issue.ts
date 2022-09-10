@@ -21,6 +21,10 @@ class Issue extends BaseEntity {
 
   @Column()
   @Field(() => String)
+  username!: string;
+
+  @Column()
+  @Field(() => String)
   phoneNumber!: string;
 
   @Column()

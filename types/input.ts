@@ -25,6 +25,9 @@ class LoginInput {
 @InputType("ComplaintInput")
 class ComplaintInput {
   @Field(() => String)
+  username!: string;
+
+  @Field(() => String)
   phoneNumber!: string;
 
   @Field(() => String)
