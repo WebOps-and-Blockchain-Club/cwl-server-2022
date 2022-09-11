@@ -39,16 +39,12 @@ export class WaterDataResolver {
 
   @Query(() => [WaterData])
   async getWaterData() {
-    try {
-      const current = Date.now();
-      const twoDaysBefore = new Date(current - MS_IN_2_DAYS);
-      const data = await WaterData.find({
-        where: { date: MoreThanOrEqual(twoDaysBefore) },
-      });
-      return data;
-    } catch (e: any) {
-      throw new Error(e.message);
-    }
+    const current = Date.now();
+    const twoDaysBefore = new Date(current - MS_IN_2_DAYS);
+    const data = await WaterData.find({
+      where: { date: MoreThanOrEqual(twoDaysBefore) },
+    });
+    return data;
   }
 
   @Mutation(() => WaterData)
