@@ -13,6 +13,7 @@ import Volunteer from "./volunteer";
 @ObjectType("Issue")
 class Issue extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
+  @Field()
   id!: string;
 
   @Column()
