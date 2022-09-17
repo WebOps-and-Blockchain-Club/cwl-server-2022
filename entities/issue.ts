@@ -40,6 +40,10 @@ class Issue extends BaseEntity {
   @Field()
   status!: string;
 
+  @Column()
+  @Field()
+  image!: string;
+
   @ManyToOne(() => Volunteer, (volunteer) => volunteer.tags)
   @Field(() => Volunteer)
   volunteer!: Volunteer;

@@ -41,6 +41,9 @@ class ComplaintInput {
 
   @Field(() => String)
   status!: string;
+
+  @Field(() => String)
+  image!: string;
 }
 
 @InputType("WaterDataInput")

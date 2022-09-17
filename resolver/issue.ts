@@ -20,6 +20,7 @@ export class IssueResolver {
       issue.desc = complaintInput.desc;
       issue.location = complaintInput.location;
       issue.status = UNRESOLVED;
+      issue.image = complaintInput.image;
       const CompliantCreated = await issue.save();
       return CompliantCreated;
     } catch (e: any) {
