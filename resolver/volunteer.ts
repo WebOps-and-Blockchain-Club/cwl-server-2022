@@ -23,6 +23,11 @@ export class VolunteerResolver {
     }
     throw Error("Invalid credentials");
   }
+  @Query(() => [Volunteer])
+  async getVolunteers() {
+    const volunteers = await Volunteer.find({});
+    return volunteers;
+  }
   @Mutation(() => Volunteer)
   async signUp(@Arg("VolunteerInput") VolunteerInput: VolunteerInput) {
     try {
