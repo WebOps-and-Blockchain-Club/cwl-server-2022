@@ -12,11 +12,17 @@ export class VolunteerResolver {
     const isPasswordValid =
       phoneNumber === "1234567890" && password === "1234567890";
     if (isPasswordValid) {
-      return {
+      const response = {
+        token: jwt.sign(phoneNumber, process.env.JWT_SECRET!),
         success: true,
       };
+      console.log(response);
+      return response;
     }
-    throw Error("Invalid credentials");
+    return {
+      token: undefined,
+      success: false,
+    };
   }
   @Query(() => [Volunteer])
   async getVolunteers() {
