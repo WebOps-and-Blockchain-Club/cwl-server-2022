@@ -4,7 +4,7 @@ import Volunteer from "../entities/volunteer";
 import { VolunteerInput, LoginInput } from "../types/input";
 import bcryptjs from "bcryptjs";
 import LoginResponse from "../types/return";
-
+import jwt from "jsonwebtoken";
 @Resolver()
 export class VolunteerResolver {
   @Query(() => LoginResponse)
