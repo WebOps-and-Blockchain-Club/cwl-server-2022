@@ -13,7 +13,7 @@ export class WaterDataResolver {
   async getS3URL() {
     const randomBytes = promisify(crypto.randomBytes);
     const rawBytes = await randomBytes(16);
-    const imageName = rawBytes.toString("hex");
+    const imageName = `${rawBytes.toString("hex")}.jpeg`;
     const {
       REGION: region,
       BUCKET_NAME: bucketName,
@@ -49,14 +49,14 @@ export class WaterDataResolver {
 
   @Mutation(() => WaterData)
   async postWaterData(
-    @Arg("WaterDataInput") { location, depth, image }: WaterDataInput
+    @Arg("WaterDataInput") { location, depth, image, remarks }: WaterDataInput
   ) {
     const waterData = new WaterData();
     waterData.location = location;
     waterData.image = image;
     waterData.date = new Date();
     waterData.depth = depth;
-
+    waterData.remarks = remarks;
     const waterDataCreated = await waterData.save();
     return waterDataCreated;
   }

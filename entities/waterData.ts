@@ -22,6 +22,10 @@ class WaterData extends BaseEntity {
   @Column()
   @Field(() => Date)
   date!: Date;
+
+  @Column({ nullable: true })
+  @Field(() => String, { defaultValue: "" })
+  remarks!: string;
 }
 
 export default WaterData;

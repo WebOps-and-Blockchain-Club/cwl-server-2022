@@ -56,6 +56,9 @@ class WaterDataInput {
 
   @Field(() => Number)
   depth!: number;
+
+  @Field(() => String)
+  remarks!: string;
 }
 
 export { VolunteerInput, ComplaintInput, LoginInput, WaterDataInput };
