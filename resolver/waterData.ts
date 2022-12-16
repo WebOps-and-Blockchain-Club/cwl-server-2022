@@ -2,7 +2,7 @@ import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import WaterData from "../entities/waterData";
 import { MoreThanOrEqual } from "typeorm";
 import { WaterDataInput } from "../types/input";
-import { MS_IN_2_DAYS } from "../utils/constants";
+import { MS_IN_DAYS } from "../utils/constants";
 import aws from "aws-sdk";
 import crypto from "crypto";
 import { promisify } from "util";
@@ -38,15 +38,14 @@ export class WaterDataResolver {
   }
 
   @Query(() => [WaterData])
-  async getWaterData() {
+  async getWaterData(@Arg("interval", { defaultValue: 1 }) interval: number) {
     const current = Date.now();
-    const twoDaysBefore = new Date(current - MS_IN_2_DAYS);
+    const DaysBefore = new Date(current -interval*MS_IN_DAYS);
     const data = await WaterData.find({
-      where: { date: MoreThanOrEqual(twoDaysBefore) },
+      where: { date: MoreThanOrEqual(DaysBefore) },
     });
     return data;
   }
-
   @Mutation(() => WaterData)
   async postWaterData(
     @Arg("WaterDataInput") { location, depth, image, remarks }: WaterDataInput
