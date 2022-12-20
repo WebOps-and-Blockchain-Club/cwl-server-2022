@@ -40,12 +40,21 @@ export class WaterDataResolver {
   @Query(() => [WaterData])
   async getWaterData(@Arg("interval", { defaultValue: 1 }) interval: number) {
     const current = Date.now();
-    const DaysBefore = new Date(current -interval*MS_IN_DAYS);
+    const DaysBefore = new Date(current - interval * MS_IN_DAYS);
     const data = await WaterData.find({
       where: { date: MoreThanOrEqual(DaysBefore) },
     });
     return data;
   }
+
+  @Query(() => [WaterData])
+  async getDataDepth(@Arg("depth", { defaultValue: 1 }) depth: number) {
+    const data = await WaterData.find({
+      where: { depth: MoreThanOrEqual(depth) },
+    });
+    return data;
+  }
+
   @Mutation(() => WaterData)
   async postWaterData(
     @Arg("WaterDataInput") { location, depth, image, remarks }: WaterDataInput
