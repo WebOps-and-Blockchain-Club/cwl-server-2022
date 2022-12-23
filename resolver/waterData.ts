@@ -68,4 +68,27 @@ export class WaterDataResolver {
     const waterDataCreated = await waterData.save();
     return waterDataCreated;
   }
+
+  @Mutation(() => WaterData)
+  async deleteWaterData(@Arg("ID") id: String) {
+    try {
+      const deleteData = await WaterData.findOne({ where: { id } });
+      await deleteData?.remove();
+      return deleteData;
+    } catch (error: any) {
+      throw Error(error.message);
+    }
+  }
+  @Mutation(() => WaterData)
+  async flagWaterData(@Arg("ID") id: String) {
+    try {
+      const flagData = await WaterData.findOne({ where: { id } });
+      flagData!.flagged= true;
+      await flagData?.save();
+      return flagData;
+    } catch (error: any) {
+      throw Error(error.message);
+    }
+  }
+  
 }
