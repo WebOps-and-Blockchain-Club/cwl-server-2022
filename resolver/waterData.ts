@@ -9,6 +9,7 @@ import { promisify } from "util";
 
 @Resolver()
 export class WaterDataResolver {
+  
   @Query(() => String)
   async getS3URL() {
     const randomBytes = promisify(crypto.randomBytes);
@@ -36,7 +37,7 @@ export class WaterDataResolver {
     const uploadURL: string = await s3.getSignedUrlPromise("putObject", params);
     return uploadURL;
   }
-
+  
   @Query(() => [WaterData])
   async getWaterData(@Arg("interval", { defaultValue: 1 }) interval: number) {
     const current = Date.now();
@@ -45,7 +46,8 @@ export class WaterDataResolver {
       where: { date: MoreThanOrEqual(DaysBefore) },
     });
     return data;
-  }
+  }  
+
   @Mutation(() => WaterData)
   async postWaterData(
     @Arg("WaterDataInput") { location, depth, image, remarks }: WaterDataInput
@@ -59,4 +61,5 @@ export class WaterDataResolver {
     const waterDataCreated = await waterData.save();
     return waterDataCreated;
   }
+
 }

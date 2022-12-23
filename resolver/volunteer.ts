@@ -16,7 +16,6 @@ export class VolunteerResolver {
         token: jwt.sign(phoneNumber, process.env.JWT_SECRET!),
         success: true,
       };
-      console.log(response);
       return response;
     }
     return {
