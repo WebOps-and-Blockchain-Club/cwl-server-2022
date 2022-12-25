@@ -9,7 +9,6 @@ import { promisify } from "util";
 
 @Resolver()
 export class WaterDataResolver {
-  
   @Query(() => String)
   async getS3URL() {
     const randomBytes = promisify(crypto.randomBytes);
@@ -37,16 +36,24 @@ export class WaterDataResolver {
     const uploadURL: string = await s3.getSignedUrlPromise("putObject", params);
     return uploadURL;
   }
-  
-  @Query(() => [WaterData])
+
+  @Mutation(() => [WaterData])
   async getWaterData(@Arg("interval", { defaultValue: 1 }) interval: number) {
     const current = Date.now();
-    const DaysBefore = new Date(current -interval*MS_IN_DAYS);
+    const DaysBefore = new Date(current - interval * MS_IN_DAYS);
     const data = await WaterData.find({
       where: { date: MoreThanOrEqual(DaysBefore) },
     });
     return data;
-  }  
+  }
+
+  @Mutation(() => [WaterData])
+  async getDataDepth(@Arg("depth", { defaultValue: 1 }) depth: number) {
+    const data = await WaterData.find({
+      where: { depth: MoreThanOrEqual(depth) },
+    });
+    return data;
+  }
 
   @Mutation(() => WaterData)
   async postWaterData(
@@ -62,4 +69,25 @@ export class WaterDataResolver {
     return waterDataCreated;
   }
 
+  @Mutation(() => WaterData)
+  async deleteWaterData(@Arg("ID") id: String) {
+    try {
+      const deleteData = await WaterData.findOne({ where: { id } });
+      await deleteData?.remove();
+      return deleteData;
+    } catch (error: any) {
+      throw Error(error.message);
+    }
+  }
+  @Mutation(() => WaterData)
+  async flagWaterData(@Arg("ID") id: String) {
+    try {
+      const flagData = await WaterData.findOne({ where: { id } });
+      flagData!.flagged = true;
+      await flagData?.save();
+      return flagData;
+    } catch (error: any) {
+      throw Error(error.message);
+    }
+  }
 }

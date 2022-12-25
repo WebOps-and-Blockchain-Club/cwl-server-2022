@@ -5,6 +5,7 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 @ObjectType("WaterData")
 class WaterData extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
+  @Field(()=>String)
   id!: string;
 
   @Column()
