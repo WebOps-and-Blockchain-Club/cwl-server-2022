@@ -40,11 +40,16 @@ export class WaterDataResolver {
   @Mutation(() => [WaterData])
   async getWaterData(@Arg("interval", { defaultValue: 1 }) interval: number) {
     const current = Date.now();
-    const DaysBefore = new Date(current - interval * MS_IN_DAYS);
-    const data = await WaterData.find({
-      where: { date: MoreThanOrEqual(DaysBefore) },
-    });
-    return data;
+    if (current - interval * MS_IN_DAYS >= 0) {
+      const DaysBefore = new Date(current - interval * MS_IN_DAYS);
+
+      const data = await WaterData.find({
+        where: { date: MoreThanOrEqual(DaysBefore) },
+      });
+      return data;
+    } else {
+      return await WaterData.find({});
+    }
   }
 
   @Mutation(() => [WaterData])
