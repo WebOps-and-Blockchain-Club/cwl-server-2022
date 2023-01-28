@@ -38,26 +38,24 @@ export class WaterDataResolver {
   }
 
   @Mutation(() => [WaterData])
-  async getWaterData(@Arg("interval", { defaultValue: 1 }) interval: number) {
+  async getWaterData(
+    @Arg("interval", { defaultValue: 1 }) interval: number,
+    @Arg("depth", { defaultValue: 0 }) depth: number
+  ) {
     const current = Date.now();
     if (current - interval * MS_IN_DAYS >= 0) {
       const DaysBefore = new Date(current - interval * MS_IN_DAYS);
 
       const data = await WaterData.find({
-        where: { date: MoreThanOrEqual(DaysBefore) },
+        where: {
+          date: MoreThanOrEqual(DaysBefore),
+          depth: MoreThanOrEqual(depth),
+        },
       });
       return data;
     } else {
       return await WaterData.find({});
     }
-  }
-
-  @Mutation(() => [WaterData])
-  async getDataDepth(@Arg("depth", { defaultValue: 1 }) depth: number) {
-    const data = await WaterData.find({
-      where: { depth: MoreThanOrEqual(depth) },
-    });
-    return data;
   }
 
   @Mutation(() => WaterData)
