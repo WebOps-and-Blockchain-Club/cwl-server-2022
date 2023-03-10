@@ -1,5 +1,4 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
-import Issue from "../entities/issue";
 import Volunteer from "../entities/volunteer";
 import { VolunteerInput, LoginInput } from "../types/input";
 import bcryptjs from "bcryptjs";
